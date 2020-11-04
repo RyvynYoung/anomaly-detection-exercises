@@ -100,6 +100,7 @@ def get_counties(df):
     df_dummies = pd.concat([df, county_df], axis = 1)
     return df_dummies
 
+
 def get_upper_outliers(s, k):
     '''
     Given a series and a cutoff value, k, returns the upper outliers for the
@@ -122,7 +123,7 @@ def add_upper_outlier_columns(df, k):
     return df.assign(**outlier_cols)
 
     for col in df.select_dtypes('number'):
-        if col not endswith('_outliers', -9):
+        if not col.endswith('_outliers', -9):
             df[col + '_up_outliers'] = get_upper_outliers(df[col], k)
 
     return df
@@ -149,7 +150,7 @@ def add_lower_outlier_columns(df, k):
     return df.assign(**outlier_cols)
 
     for col in df.select_dtypes('number'):
-        if col not endswith('_outliers', -9):
+        if not col.endswith('_outliers', -9):
             df[col + '_low_outliers'] = get_lower_outliers(df[col], k)
     
     return df
